@@ -26,16 +26,26 @@ class Map {
         }
         out.println();
     }
-     static void HandleInput() {
-         String[] input = new String[2];
+     private static void HandleInput() {
+        String[] input;
         try (Scanner scanner = new Scanner(System.in)){
-            input = scanner.nextLine().split(" ");
-            if (input.length > 2 ) throw new IllegalArgumentException();
-        } catch (IllegalArgumentException e) {
-            out.println("Only two coordinates in the format of (A#) ");
-            HandleInput();
+            do {
+                input = scanner.nextLine().split(" ");
+            } while (!isGoodInput(input));
         }
-
         System.out.println(Arrays.toString(input));
+    }
+    private static boolean isGoodInput(String[] array) {
+        if (array.length != 2) {
+            out.println("Not valid input");
+            return false;
+        }
+        for (int i = 0; i < array.length; i++) {
+            if (array[i].length() != 2) {
+                out.println("Not valid input");
+                return false;
+            }
+        }
+        return true;
     }
 }

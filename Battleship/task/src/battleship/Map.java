@@ -1,10 +1,11 @@
 package battleship;
 
-import java.util.Arrays;
-import java.util.Scanner;
+import battleship.ships.Ships;
 
-import static java.lang.System.in;
-import static java.lang.System.out;
+import java.util.Arrays;
+import java.util.Objects;
+import java.util.Scanner;
+import static java.lang.System.*;
 
 class Map {
     public static void setupCoordinateSys() {
@@ -30,10 +31,11 @@ class Map {
         String[] input;
         try (Scanner scanner = new Scanner(System.in)){
             do {
+                out.printf("Enter the coordinates of the ");
                 input = scanner.nextLine().split(" ");
             } while (!isGoodInput(input));
         }
-        System.out.println(Arrays.toString(input));
+        out.println(Arrays.toString(input));
     }
     private static boolean isGoodInput(String[] array) {
         if (array.length != 2) {

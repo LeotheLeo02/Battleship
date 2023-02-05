@@ -1,11 +1,12 @@
 package battleship;
 
-import battleship.ships.Ships;
+import battleship.ships.Ship;
 
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Scanner;
-import static java.lang.System.*;
+
+import static java.lang.System.out;
 
 class Map {
     public static void setupCoordinateSys() {
@@ -16,26 +17,31 @@ class Map {
         out.println();
         for (int i = 65; i < 75; i++) {
             out.print(((char) i) + " ");
-            setupWaters();
+            for (int j = 0; j < 10; j++) {
+                out.print('~' + " ");
+            }
+            out.println();
         }
         HandleInput();
     }
 
-    private static void setupWaters() {
-        for (int i = 0; i < 10; i++) {
-            out.print('~' + " ");
-        }
-        out.println();
-    }
      private static void HandleInput() {
         String[] input;
+        Object[][] list = {
+                {"Aircraft Carrier", "Battleship", "Submarine", "Cruiser" , "Destroyer"},
+                {5, 4, 3, 3, 2}
+        };
+        Ship[] ships = new Ship[5];
         try (Scanner scanner = new Scanner(System.in)){
-            do {
-                out.printf("Enter the coordinates of the ");
-                input = scanner.nextLine().split(" ");
-            } while (!isGoodInput(input));
+                for (int j = 0; j < list[0].length; j++) {
+                    do {
+                        out.printf("Enter the coordinates of the %s ", list[0][j]);
+                        input = scanner.nextLine().split(" ");
+                        ships[j] = new Ship(input, (Integer) list[1][j]);
+                    } while (!isGoodInput(input));
+                }
         }
-        out.println(Arrays.toString(input));
+//        out.println(Arrays.toString(input));
     }
     private static boolean isGoodInput(String[] array) {
         if (array.length != 2) {
